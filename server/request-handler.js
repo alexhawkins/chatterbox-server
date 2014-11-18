@@ -11,11 +11,19 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+var url = require('url');
 var exports = module.exports = {};
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
-  //
+  var parsedUrl = url.parse(request.url).pathname;
+  var statusCode = 200;
+  console.log(parsedUrl);
+
+  if(parsedUrl === '/') {
+    console.log('serving index.html');
+  }
+  //console.log(statusCode);
   // They include information about both the incoming request, such as
   // headers and URL, and about the outgoing response, such as its status
   // and content.
@@ -31,7 +39,8 @@ var requestHandler = function(request, response) {
   console.log("Serving request type " + request.method + " for url " + request.url);
 
   // The outgoing status.
-  var statusCode = 200;
+
+
 
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
